@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "baseUrl": "src",
+    "outDir": "dist",
+    // "lib": ["ESNext", "DOM"],
+    // "target": "ESNext",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["src/**/*"]
+}
