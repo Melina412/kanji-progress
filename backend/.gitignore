@@ -1,3 +1,4 @@
 .env
-src/data/duolingoUserApi.json
+src/data/
 node_modules
+info.md
