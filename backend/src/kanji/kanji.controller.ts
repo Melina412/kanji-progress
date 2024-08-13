@@ -2,20 +2,23 @@ import fs from 'fs';
 import { Request, Response } from 'express';
 
 // daten aus duolingo user api
-import data from '../data/duolingoUserApi.json';
+import duolingoData from '../data/duolingoUserApi.json';
+import rtkDeck from '../data/deck.json';
+import kanjiData from '../data/kanji.json';
 
-const units = data?.alphabets[2].groups;
-// console.log('units[0]', units[0]);
+const units = duolingoData?.alphabets[2].groups;
+console.log('units[0]', units[0]);
 
 function getData() {
   const data = units.map((unit) => {
     const title = unit.title;
+    const subtitle = unit.subtitle;
     const kanji = unit.characters
       .flatMap((group) => group.map((item) => (item ? item.character : null)))
       .filter((char) => char); // filtern der null werte
-    return { title, kanji };
+    return { title, subtitle, kanji };
   });
-  // console.log(data[5]);
+  console.log(data[5]);
   return data;
 }
 
@@ -24,7 +27,7 @@ const duolingoKanji = getData();
 
 async function writeData() {
   fs.writeFile(
-    './backend/src/data/duolingoKanji.json',
+    '../backend/src/data/duolingoKanji.json',
     JSON.stringify(duolingoKanji),
     'utf-8',
     (error) => {
@@ -68,3 +71,22 @@ export async function findDuolingoKanji(req: Request, res: Response) {
     console.log(error);
   }
 }
+
+function printFields() {
+  const fields = rtkDeck?.note_models[0].flds;
+
+  const fieldNames = fields?.map((obj) => {
+    return { name: obj.name, order: obj.ord };
+  });
+  // console.log({ fieldNames });
+
+  let result: string[] = [];
+  fieldNames?.forEach((obj) => {
+    result[obj.order] = obj.name;
+  });
+  // console.log({ result });
+  return result;
+}
+
+const orderedFieldNames = printFields();
+// console.log({ orderedFieldNames });
