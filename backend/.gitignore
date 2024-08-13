@@ -1,4 +1,6 @@
 .env
-src/data/
+src/data/sources
 node_modules
 info.md
+
+src/data/kanji.json
